@@ -4,13 +4,16 @@ require("dotenv").config();
 const fs = require("fs").promises;
 const path = require("path");
 const loading = require("loading-cli");
-const { MONGODB_URI } = process.env;
-
+const { MONGODB_URI, MONGODB_PRODUCTION_URI } = process.env;
+// don't copy and past this! It needs to be updated.
+const client = new MongoClient(
+  process.env.NODE_ENV === "production" ? MONGODB_PRODUCTION_URI : MONGODB_URI
+);
 
 /**
  * constants
  */
-const client = new MongoClient(MONGODB_URI);
+
 
 async function main() {
   try {
